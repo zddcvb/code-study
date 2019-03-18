@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<!-- 配置別名 -->
+	<typeAliases>
+		<typeAlias type="com.yanxi.mybatis.pojo.Employee" alias="employee" />
+	</typeAliases>
+	<!-- 配置数据库 -->
+	<environments default="developement">
+		<environment id="developement">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://172.16.2.22:3307/mybatis_test" />
+				<property name="username" value="root" />
+				<property name="password" value="root" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 配置mapper文件 -->
+	<mappers>
+		<mapper resource="com/yanxi/mybatis/mapper/Employee.xml" />
+	</mappers>
+</configuration>

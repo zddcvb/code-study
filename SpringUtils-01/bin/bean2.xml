@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="springDemo" class="com.yanxi.spring.util.SpringDemo"
+		scope="singleton" init-method="init" destroy-method="destory">
+	</bean>
+	<!-- BeanPostProcessor后置器，自动检测 -->
+	<bean class="com.yanxi.spring.util.SpringBeanPost"></bean>
+	<!-- abstract 抽象属性 parent继承属性 -->
+	<bean id="beanTemple" class="com.yanxi.spring.util.BeanTemple"
+		abstract="true"></bean>
+	<bean id="springDemo2" class="com.yanxi.spring.util.SpringDemo2"
+		parent="beanTemple">
+	</bean>
+</beans>

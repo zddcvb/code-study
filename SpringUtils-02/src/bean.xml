@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- 构造函数注入， 此 类必须添加有参的构造方法-->
+	<bean id="person" class="com.yanxi.ioc.bean.Person">
+		<constructor-arg ref="student1"></constructor-arg>
+	</bean>
+	<bean id="student1" class="com.yanxi.ioc.bean.Student">
+		<constructor-arg type="java.lang.String" value="jack"></constructor-arg>
+		<constructor-arg type="int" value="20"></constructor-arg>
+	</bean>
+
+	<!-- 内部属性注入javabean，此类必须添加空参构造方法 -->
+	<bean id="person1" class="com.yanxi.ioc.bean.Person">
+		<property name="student">
+			<bean id="student" class="com.yanxi.ioc.bean.Student">
+				<constructor-arg type="java.lang.String" value="mary"></constructor-arg>
+				<constructor-arg type="int" value="20"></constructor-arg>
+			</bean>
+		</property>
+		<!-- 注入list集合 -->
+		<property name="lists">
+			<list>
+				<value>11</value>
+				<value>12</value>
+				<value>15</value>
+				<value>18</value>
+			</list>
+		</property>
+		<!-- 注入set集合 -->
+		<property name="sets">
+			<set>
+				<value>mary</value>
+				<value>lucy</value>
+				<value>maly</value>
+				<value>jame</value>
+			</set>
+		</property>
+		<!-- 注入map集合 -->
+		<property name="maps">
+			<map>
+				<entry key="age" value="21"/>
+				<entry key="age" value="20"/>
+			</map>
+		</property>
+		<!-- 注入properties集合 -->
+		<property name="properties">
+			<props>
+				<prop key="name">mary</prop>
+				<prop key="age">20</prop>
+				<prop key="sex">man</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

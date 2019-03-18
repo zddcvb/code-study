@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	<bean id="userInfo" class="com.jollyclass.spring.bean.UserInfo">
+		<!--list 配置 -->
+		<property name="users">
+			<list>
+				<ref bean="user" />
+			</list>
+		</property>
+		<!-- set配置 -->
+		<property name="userSet">
+			<set>
+				<bean class="com.jollyclass.spring.bean.User">
+					<property name="id" value="2"></property>
+					<property name="name" value="mary"></property>
+					<property name="age" value="22"></property>
+				</bean>
+			</set>
+		</property>
+		<!--map配置 -->
+		<property name="userMap">
+			<map>
+				<entry key="str1">
+					<bean class="com.jollyclass.spring.bean.User">
+						<property name="id" value="3"></property>
+						<property name="name" value="lucy"></property>
+						<property name="age" value="25"></property>
+					</bean>
+				</entry>
+			</map>
+		</property>
+		<!--properties -->
+		<property name="properties">
+			<props>
+				<prop key="id">4</prop>
+				<prop key="name">linda</prop>
+				<prop key="age">30</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="user" class="com.jollyclass.spring.bean.User" scope="prototype">
+	</bean>
+
+
+</beans>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+	<context:property-placeholder location="classpath:db.properties" />
+		<!--  c3p0连接池 -->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${driverClass}" />
+		<property name="jdbcUrl" value="${url}" />
+		<property name="user" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
+	<bean id="accountDao" class="com.jollyclass.dao.impl.AccountDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="accountService" class="com.jollyclass.service.impl.AccountServiceImpl">
+		<property name="accountDao" ref="accountDao"></property>
+	</bean>
+	<!-- 事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<!-- 事务管理器，需要从数据源获取连接，才能开启事务，提交事务，回滚事务 -->
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 需要Advice进行事务增强 -->
+	<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+		<!-- 事务配置属性，对什么方法，应用怎样的事务配置，配置信息，成为 TransactionDefinition对象 -->
+		<tx:attributes>
+			<!-- name 方法名 isolation 隔离级别 propagation 传播行为 timeout 超时时间 read-only 是否只读 
+				rollback-for 配置一些异常类型，发生这些异常 回滚事务 no-rollback-for 配置一些异常类型，发生这些异常，不回滚事务 -->
+			<tx:method name="transfer" isolation="DEFAULT" propagation="REQUIRED"
+				timeout="-1" read-only="false" no-rollback-for="java.lang.ArithmeticException" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 配置切面 -->
+	<aop:config>
+		<aop:advisor advice-ref="transactionAdvice"
+			pointcut="execution(* com.jollyclass.service.impl.AccountServiceImpl.*(..))" />
+	</aop:config>
+</beans>

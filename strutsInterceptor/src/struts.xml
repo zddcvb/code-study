@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="ture"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<!-- <include file="struts-login.xml"></include> -->
+	<include file="struts-attri.xml"></include>
+	<include file="struts-person.xml"></include>
+	<include file="struts-validate.xml"></include>
+	<include file="struts-interator.xml"></include>
+	<include file="struts-listForm.xml"></include>
+	<include file="struts-fileload.xml"></include>
+	<include file="struts-token.xml"></include>
+	<include file="struts-convert.xml"></include>
+</struts>

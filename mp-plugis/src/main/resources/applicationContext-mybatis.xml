@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.3.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.3.xsd 
+http://www.springframework.org/schema/jee
+http://www.springframework.org/schema/jee/spring-jee-4.3.xsd">
+
+	<!-- 配置hibernate数据库信息 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<context:annotation-config></context:annotation-config>
+	<!-- 根据基础包名，自动装配bean -->
+	<context:component-scan base-package="com.yanxi.mp.service" />
+
+	<!-- BasicDataSource数据源 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driver}"></property>
+		<property name="url" value="${jdbc.url}"></property>
+		<property name="username" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+
+	<!-- 配置sessonFactory 採用mybatis-spring 包中的sqlsessionfactory -->
+	<bean id="sessionFactory"
+		class="com.baomidou.mybatisplus.spring.MybatisSqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- spring yu mybaits配置时可以不用mybatis的配置文件 -->
+		<property name="configLocation" value="classpath:mybatis-conf.xml"></property>
+		<!-- 自动扫描目录下的xml文件，此文件名称与dao文件一致 -->
+		<property name="mapperLocations" value="classpath:com/yanxi/mp/mapper/*.xml"></property>
+
+	</bean>
+	<!-- 配置扫描包,自动扫描dao目录下的dao文件 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.yanxi.mp.mapper"></property>
+		<property name="sqlSessionFactoryBeanName" value="sessionFactory"></property>
+	</bean>
+	<!-- 配置事务管理 -->
+	<bean name="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+</beans>

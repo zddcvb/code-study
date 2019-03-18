@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.devMode" value="true"></constant>
+	<constant name="struts.action.extension" value="do"></constant>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	<!-- 配置UpAndDownloadAction -->
+	<package name="UpAndDownloadAction" extends="struts-default" namespace="/">
+		<action name="load_*" method="{1}" class="com.jollyclass.file.action.UpAndDownloadAction">
+			<result name="upload">/index.jsp</result>
+			<result name="download" type="stream">
+				<param name="inputName">inputStream</param>
+				<param name="contentType">application/octet-stream</param>
+				<param name="contentDisposition">attachment;filename="${#fileName}.doc"</param>
+			</result>
+		</action>
+	</package>
+	
+
+</struts>

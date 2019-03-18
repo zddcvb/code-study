@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+    ">
+	<!--设置提供服务的应用 -->
+	<dubbo:application name="dubboService-client"></dubbo:application>
+	<!--设置注册中心的地址，暴露服务 -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" />
+	<dubbo:reference id="dubboService"
+		interface="dubbo_client.client.service.DemoService" check="false" />
+
+</beans>

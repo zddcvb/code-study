@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+				http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<import resource="classpath:jdbc.properties" />
+	<bean id="processEngineConfiguration"
+		class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+		<property name="databaseSchemaUpdate" value="true" />
+		<property name="jdbcUrl" value="${jdbcUrl}"></property>
+		<property name="jdbcDriver" value="${jdbcDriver}"></property>
+		<property name="jdbcUsername" value="${jdbcUsername}"></property>
+		<property name="jdbcPassword" value="${jdbcPassword}"></property>
+	</bean>
+</beans>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- 通过类型自动装配，byType-->
+	<!-- <bean id="person2" class="com.yanxi.ioc.bean.Person2" autowire="byType"> -->
+	<!-- 通过byName自动装配 -->
+	<!-- <bean id="person2" class="com.yanxi.ioc.bean.Person2" autowire="byName"> -->
+	<!-- 通过构造函数自动装配，构造函数有多少个基本数据类型的参数都必须带上， -->
+	<bean id="person2" class="com.yanxi.ioc.bean.Person2" autowire="constructor">
+	<constructor-arg  value="mary"></constructor-arg>
+	</bean>
+	<bean id="student" class="com.yanxi.ioc.bean.Student">
+		<constructor-arg type="java.lang.String" value="jack"></constructor-arg>
+		<constructor-arg type="int" value="20"></constructor-arg>
+	</bean>
+	
+</beans>

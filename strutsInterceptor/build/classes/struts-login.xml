@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="loginAction" namespace="/" extends="struts-default">
+		<interceptors>
+			<!-- 声明自己的拦截器 -->
+			<interceptor name="loginInterceptor"
+				class="com.jollyclass.struts.interceptor.LoginInterceptor"></interceptor>
+			<!-- 创建拦截器栈，引用默认的拦截器和自定义的拦截器 -->
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<!-- 设定struts2默认引用的拦截器栈 -->
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+		<action name="interceptor_*" method="{1}"
+			class="com.jollyclass.struts.action.LoginAction">
+			<result name="login">login.jsp</result>
+		</action>
+	</package>
+</struts>

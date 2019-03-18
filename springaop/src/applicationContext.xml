@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+				http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="user" class="com.jollyclass.bean.User">
+
+	</bean>
+	<!--通知之前的配置  -->
+	<bean id="beforeDemo" class="com.jollyclass.bean.BeforeDemo"></bean>
+	<bean id="userProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="user"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>beforeDemo</value>
+			</list>
+		</property>
+	</bean>
+	<!--通知之后的配置  -->
+	<bean id="AfterDemo" class="com.jollyclass.bean.AfterDemo"></bean>
+	<bean id="userProxy1" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="user"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>AfterDemo</value>
+			</list>
+		</property>
+	</bean>
+	<!--通知异常的配置  -->
+	<bean id="ThrowDemo" class="com.jollyclass.bean.ThrowDemo"></bean>
+	<bean id="userProxy2" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="user"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>ThrowDemo</value>
+			</list>
+		</property>
+	</bean>
+	<!--环绕通知的配置  -->
+	<bean id="MutilDemo" class="com.jollyclass.bean.MutilDemo"></bean>
+	<bean id="userProxy3" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="user"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>MutilDemo</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="pointcut" class="org.springframework.aop.support.NameMatchMethodCut"></bean>
+</beans>

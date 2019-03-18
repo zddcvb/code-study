@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.custom.i18n.resources" value="com.jollyclass.struts.action.token"></constant>
+	<package name="tokenAction" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor-stack name="tokenIterceptor">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="token">
+					<param name="includeMethods">token</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="tokenIterceptor"></default-interceptor-ref>
+		<action name="token_*" method="{1}"
+			class="com.jollyclass.struts.action.TokenAction">
+			<result name="invalid.token">index.jsp</result>
+			<result name="token">token.jsp</result>
+		</action>
+	</package>
+</struts>

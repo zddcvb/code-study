@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: 读取文件夹名称并保存.jar
+

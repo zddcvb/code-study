@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yanxi.hibernate.pojo.TestBean">
+		<id name="id" column="id" type="int">
+			<generator class="increment"></generator>
+		</id>
+		<property name="name" column="name" type="string"></property>
+		<property name="age" column="age" type="int"></property>
+		<!-- Demo屬性，表示当前类与Demo类多对一的关系 -->
+		<many-to-one name="demo" class="com.yanxi.hibernate.pojo.Demo"
+			column="demoId" />
+		<!-- Demos属性，表示当前类与Demo类一对多的关系 -->
+		<set name="demos" cascade="delete">
+			<key column="testBeanId"></key>
+			<one-to-many class="com.yanxi.hibernate.pojo.Demo" />
+		</set>
+		<!-- Demos属性，表示当前类与Demo类多对多的关系 -->
+		<set name="demos" table="testBean_demo">
+			<key column="testBeanId"></key>
+			<many-to-many class="com.yanxi.hibernate.pojo.Demo"
+				column="demoId"></many-to-many>
+		</set>
+		<!-- Demos属性，表示当前类与Demo类一对一的关系 -->
+		<set name="demo">
+			<key column="testBeanId"></key>
+			<many-to-many class="com.yanxi.hibernate.pojo.Demo"
+				column="demoId" unique="true"></many-to-many>
+		</set>
+	</class>
+</hibernate-mapping>

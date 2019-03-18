@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yanxi.mybatis.mapper.Employee">
+	<select id="findAll" resultType="employee">
+		select * from employee
+	</select>
+	<select id="selectById" parameterType="integer" resultType="employee">
+		select * from employee where id=#{id}
+	</select>
+	<select id="selectByIds" resultType="employee">
+		select * from employee where id in
+		<foreach collection="array" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+	<select id="selectByList" resultType="employee">
+		select * from employee where id in
+		<foreach collection="list" item="id" index="index" open="("
+			close=")" separator=",">
+			#{id}
+		</foreach>
+	</select>
+	<!-- 传入的 map，collection、item、具体的值都为map.key-->
+	<select id="selectByMap" parameterType="Map" resultType="employee">
+		select * from employee where id in
+		<foreach collection="ids" item="ids" index="index" open="("
+			close=")" separator=",">
+			#{ids}
+		</foreach>
+	</select>
+	<insert id="insert" parameterType="employee">
+		insert into employee
+		values(#{id},#{name},#{age})
+	</insert>
+	<update id="update" parameterType="employee">
+		update employee set
+		name=#{name},age=#{age} where id=#{id}
+	</update>
+	<delete id="delete" parameterType="integer">
+		delete from employee where
+		id=#{id}
+	</delete>
+</mapper>
